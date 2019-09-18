@@ -18,7 +18,7 @@ def generate(matrix, l):
     for x in range(l):
         print("ROUND " + str(x+1))
         # Deep copy of matrix, used for background updates
-        tmp_matrix = matrix[:] 
+        tmp_matrix = deepcopy(matrix)
         # You update the matrix with the tmp only after a full sweep of each cell
         for i in range(len(matrix)):
             for j in range(len(matrix)):
@@ -30,8 +30,6 @@ def generate(matrix, l):
                 else:
                     dead_cell(neighbors, tmp_matrix, i, j)
         
-        # Update matrix with tmp_matrix
-        # if I print both matrices here, they are the same ... don't know why
         matrix = deepcopy(tmp_matrix)   
         print("New Neighbors...")
         print_matrix(matrix)
@@ -46,9 +44,6 @@ def find_neighbors(matrix, i, j):
     #   i   0   i   i       W --|-- E
     #   i   i   i   i           S
     #   i   i   i   i 
-
-    # somethings wrong: 0 1 1 1 0 --> 0 0 0 0 0
-    # the middle one should have survived
 
     # North
     if(i-1 >= 0):
